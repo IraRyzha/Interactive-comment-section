@@ -1,7 +1,9 @@
 import { staticComments } from "../data";
 
 const initialState = {
-  comments: [[...staticComments]],
+  comments: [...staticComments],
 };
+
+console.log(initialState);
 
 export default initialState;

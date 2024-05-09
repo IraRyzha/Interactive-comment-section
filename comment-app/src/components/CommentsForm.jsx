@@ -1,6 +1,6 @@
 function CommentsForm() {
   return (
-    <div>
+    <div className="w-full h-full border-2">
       <h2>Comments Form</h2>
     </div>
   );
