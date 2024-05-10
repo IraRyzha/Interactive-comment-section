@@ -8,9 +8,28 @@ const reducer = (state, action) => {
     case "ADD_COMMENT":
       return {
         ...state,
-        comments: [...state.comments, ...action.payload.comment],
+        comments: [...state.comments, action.payload.comment],
       };
-
+    case "EDIT_COMMENT":
+      return {
+        ...state,
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            const updatedComment = { ...comment };
+            updatedComment.text = action.payload.newText;
+            return updatedComment;
+          } else {
+            return comment;
+          }
+        }),
+      };
+    case "DELETE_COMMENT":
+      return {
+        ...state,
+        comments: state.comments.filter(
+          (comment) => comment.id !== action.payload.commentId
+        ),
+      };
     default:
       return {
         ...state,

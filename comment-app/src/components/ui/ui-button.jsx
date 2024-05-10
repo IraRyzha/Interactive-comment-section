@@ -5,11 +5,15 @@ import ReplyIcon from "../icons/reply-icon";
 
 /**
  * @param {{
+ * children: any,
+ * className: string,
  * type: string,
+ * onClick: any,
+ * disabled: boolean,
  * }} props
  */
 
-function UiButton({ children, className, type, onClick }) {
+function UiButton({ children, className, type, onClick, disabled }) {
   const buttonClassname = clsx(
     className,
     "flex items-center gap-1 border-2",
@@ -17,13 +21,11 @@ function UiButton({ children, className, type, onClick }) {
       reply: "text-blue-700 hover:text-blue-800",
       edit: "text-blue-700 hover:text-blue-800",
       delete: "text-red-700 hover:text-red-800",
-    }[type]
-  );
-
-  const mainButton = (
-    <button className="px-5 py-1 rounded-lg bg-blue-700 hover:bg-blue-800 border-2">
-      {children}
-    </button>
+    }[type],
+    {
+      true: "opacity-50",
+      false: "opacity-100",
+    }[disabled]
   );
 
   const replyButton = (
@@ -48,12 +50,26 @@ function UiButton({ children, className, type, onClick }) {
   );
 
   return (
-    <button onClick={onClick} className={buttonClassname}>
-      {type === "base" && mainButton}
-      {type === "reply" && replyButton}
-      {type === "edit" && editButton}
-      {type === "delete" && deleteButton}
-    </button>
+    <>
+      {type === "base" ? (
+        <button
+          onClick={onClick}
+          className={`px-5 py-1 rounded-lg text-white bg-blue-700 hover:bg-opacity-75 border-2 ${className}`}
+        >
+          {children}
+        </button>
+      ) : (
+        <button
+          onClick={onClick}
+          className={buttonClassname}
+          disabled={disabled}
+        >
+          {type === "reply" && replyButton}
+          {type === "edit" && editButton}
+          {type === "delete" && deleteButton}
+        </button>
+      )}
+    </>
   );
 }
 

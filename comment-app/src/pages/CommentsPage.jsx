@@ -7,7 +7,7 @@ function CommentsPage() {
   const { state, dispatch } = useContext(MainContext);
 
   return (
-    <div className="w-full h-screen py-10 flex flex-col items-center justify-center gap-5 bg-slate-100 border-2">
+    <div className="w-full h-screen py-8 flex flex-col items-center justify-center gap-3 bg-slate-100 rounded-lg border-2">
       <div className="w-1/2 h-5/6 border-2">
         <CommentsList />
       </div>
