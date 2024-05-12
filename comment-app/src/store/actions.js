@@ -1,7 +1,4 @@
-import getComments from "../services/getComments";
-
-const fetchComments = async (dispatch) => {
-  const comments = await getComments();
+const setComments = async (dispatch, comments) => {
   dispatch({ type: "FETCH_COMMENTS", payload: { comments } });
 };
 
@@ -18,17 +15,34 @@ const editComment = (dispatch, commentId, newText) => {
 };
 
 const replyToComment = (dispatch, toCommentId, repliedComment) => {
-  console.log("replyToComment work");
   dispatch({
     type: "REPLY_TO_COMMENT",
     payload: { toCommentId, repliedComment },
   });
 };
 
+const votesToComment = (dispatch, toCommentId, symbol) => {
+  let isIncrement;
+  switch (symbol) {
+    case "+":
+      isIncrement = true;
+      break;
+    case "-":
+      isIncrement = false;
+      break;
+  }
+  console.log(toCommentId, symbol);
+  dispatch({
+    type: "VOTES_TO_COMMENT",
+    payload: { toCommentId, isIncrement },
+  });
+};
+
 export {
-  fetchComments,
+  setComments,
   addComment,
   editComment,
   deleteComment,
   replyToComment,
+  votesToComment,
 };

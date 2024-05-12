@@ -1,14 +1,18 @@
 import { useContext, useEffect } from "react";
-import CommentForm from "../components/CommentForm";
 import CommentsList from "../components/CommentsList";
+import AddCommentForm from "../components/AddCommentForm";
 import { MainContext } from "../context/AppContext";
-import { fetchComments } from "../store/actions";
+import { setComments } from "../store/actions";
+import getComments from "../services/getComments";
 
 function CommentsPage() {
   const { dispatch } = useContext(MainContext);
-
   useEffect(() => {
-    fetchComments(dispatch);
+    const fetchComments = async () => {
+      const comments = await getComments();
+      setComments(dispatch, comments);
+    };
+    fetchComments();
   }, []);
 
   return (
@@ -17,7 +21,7 @@ function CommentsPage() {
         <CommentsList />
       </div>
       <div className="w-1/2 h-1/6 border-2">
-        <CommentForm type="add" />
+        <AddCommentForm />
       </div>
     </div>
   );

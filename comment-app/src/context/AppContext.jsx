@@ -10,6 +10,7 @@ function AppContext({ children }) {
     name: "MyProfile",
     photo: "https://api.lorem.space/image/face?w=150&h=150",
   });
+  const [newCommentId, setNewCommentId] = useState(10);
 
   return (
     <MainContext.Provider
@@ -17,6 +18,8 @@ function AppContext({ children }) {
         state,
         dispatch,
         user,
+        newCommentId,
+        setNewCommentId,
       }}
     >
       {children}

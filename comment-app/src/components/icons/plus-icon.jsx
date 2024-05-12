@@ -1,10 +1,11 @@
-function PlusIcon({ className }) {
+function PlusIcon({ className, onClick }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="currentColor"
       className={`w-4 h-4 ${className}`}
+      onClick={onClick}
     >
       <path
         fillRule="evenodd"
