@@ -1,7 +1,5 @@
-import { staticComments } from "../data";
-
 const initialState = {
-  comments: [...staticComments],
+  comments: [],
 };
 
 console.log(initialState);

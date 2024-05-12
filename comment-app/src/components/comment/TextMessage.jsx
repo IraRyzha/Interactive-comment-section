@@ -1,7 +1,7 @@
 function TextMessage({ text }) {
   return (
     <div>
-      <p className="text-sm text-gray-800">{text}</p>
+      <p className="text-sm text-gray-700">{text}</p>
     </div>
   );
 }

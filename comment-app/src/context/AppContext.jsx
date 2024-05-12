@@ -8,6 +8,7 @@ function AppContext({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [user, setUser] = useState({
     name: "MyProfile",
+    photo: "https://api.lorem.space/image/face?w=150&h=150",
   });
 
   return (

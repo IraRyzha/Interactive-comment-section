@@ -4,7 +4,7 @@ import CommentsPage from "./pages/CommentsPage";
 function App() {
   return (
     <AppContext>
-      <CommentsPage />
+      <CommentsPage /> 
     </AppContext>
   );
 }

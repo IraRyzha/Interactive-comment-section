@@ -1,9 +1,9 @@
+import ProfileImage from "./ProfileImage";
+
 function Author({ author, isUserOwn }) {
   return (
     <div className="w-auto h-auto flex items-center gap-3">
-      <div className="w-auto h-full max-w-8 max-h-8 flex items-center justify-center">
-        <img className="w-full h-full rounded-full" src={author.photo} alt="" />
-      </div>
+      <ProfileImage photo={author.photo} />
       <div className="flex items-center gap-2">
         <span className="text-base font-semibold">{author.name}</span>
         {isUserOwn ? (

@@ -1,9 +1,85 @@
 const getComments = async () => {
   // const response = fetch("...")
   const comments = [
-    { text: "...", author: "Name1", date: "27", votes: 5, replies: 3 },
-    { text: "...", author: "Name2", date: "25", votes: 1, replies: 2 },
-    { text: "...", author: "Name3", date: "100", votes: 2, replies: 0 },
+    {
+      id: 1,
+      text: "fhfghfghdfghreg",
+      author: {
+        name: "MyProfile",
+        photo: "https://api.lorem.space/image/face?w=150&h=150&r=1",
+      },
+      date: "yesterday",
+      votes: 5,
+      replies: [
+        {
+          id: 10,
+          text: "rtertretertrret",
+          author: {
+            name: "Name1",
+            photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
+          },
+          date: "month ago",
+          votes: 1,
+          replies: 2,
+        },
+        {
+          id: 12,
+          text: "rtertretertrret",
+          author: {
+            name: "Name2",
+            photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
+          },
+          date: "month ago",
+          votes: 1,
+          replies: 2,
+        },
+      ],
+    },
+    {
+      id: 2,
+      text: "rtertretertrret",
+      author: {
+        name: "Name2",
+        photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
+      },
+      date: "month ago",
+      votes: 1,
+      replies: [
+        {
+          id: 2,
+          text: "rtertretertrret",
+          author: {
+            name: "Name2",
+            photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
+          },
+          date: "month ago",
+          votes: 1,
+          replies: 2,
+        },
+      ],
+    },
+    {
+      id: 3,
+      text: "bcbcbcbdfgzsdfsdf",
+      author: {
+        name: "Name3",
+        photo: "https://api.lorem.space/image/face?w=150&h=150&r=3",
+      },
+      date: "2 weeks ago",
+      votes: 11,
+      replies: [],
+    },
+    {
+      id: 4,
+      text: "cvcxbcvbcvbfsdf",
+      author: {
+        name: "Name4",
+        photo: "https://api.lorem.space/image/face?w=150&h=150&r=4",
+      },
+      date: "recently",
+      votes: 25,
+      replies: [],
+    },
   ];
   return new Promise((resolve) => {
     setTimeout(() => {

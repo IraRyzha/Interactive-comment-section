@@ -54,7 +54,7 @@ function UiButton({ children, className, type, onClick, disabled }) {
       {type === "base" ? (
         <button
           onClick={onClick}
-          className={`px-5 py-1 rounded-lg text-white bg-blue-700 hover:bg-opacity-75 border-2 ${className}`}
+          className={`px-5 py-2 rounded-lg text-white bg-blue-700 hover:bg-opacity-75 border-2 ${className}`}
         >
           {children}
         </button>
