@@ -14,10 +14,16 @@ const editComment = (dispatch, commentId, newText) => {
   dispatch({ type: "EDIT_COMMENT", payload: { commentId, newText } });
 };
 
-const replyToComment = (dispatch, toCommentId, repliedCommentId, inputText) => {
+const replyToComment = (
+  dispatch,
+  toCommentId,
+  toCommentName,
+  repliedCommentId,
+  inputText
+) => {
   dispatch({
     type: "REPLY_TO_COMMENT",
-    payload: { toCommentId, repliedCommentId, inputText },
+    payload: { toCommentId, toCommentName, repliedCommentId, inputText },
   });
 };
 

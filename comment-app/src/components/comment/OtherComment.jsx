@@ -29,7 +29,10 @@ const OtherComment = ({ comment }) => {
               onClick={() => setIsReplying((prev) => !prev)}
             />
           </div>
-          <TextMessage text={comment.text} />
+          <TextMessage
+            text={comment.text}
+            toName={comment.replyToName ? comment.replyToName : ""}
+          />
         </div>
       </div>
       {isReplying && <ReplyCommentForm handleReply={handleReply} />}
@@ -37,7 +40,7 @@ const OtherComment = ({ comment }) => {
         return (
           <div key={reply.id} className="w-[92%] h-auto relative p-1">
             <div className="bg-gray-300 rounded-lg shadow-lg w-[2px] h-[105%] absolute -left-[5%] -top[3%] -bottom-[3%]"></div>
-            <Comment comment={reply} />
+            <Comment comment={reply} toCommentId={comment.id} />
           </div>
         );
       })}

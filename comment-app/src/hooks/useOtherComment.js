@@ -10,7 +10,23 @@ const useOtherComment = (comment) => {
     if (inputText.length < 1) {
       return 1;
     }
-    replyToComment(dispatch, comment.id, newCommentId, inputText);
+    if (comment.replyToId) {
+      replyToComment(
+        dispatch,
+        comment.replyToId,
+        comment.replyToName,
+        newCommentId,
+        inputText
+      );
+    } else {
+      replyToComment(
+        dispatch,
+        comment.id,
+        comment.author.name,
+        newCommentId,
+        inputText
+      );
+    }
     setNewCommentId((prev) => prev + 1);
     setIsReplying(false);
   };

@@ -57,7 +57,10 @@ const OwnComment = ({ comment }) => {
               </UiButton>
             </div>
           ) : (
-            <TextMessage text={comment.text} />
+            <TextMessage
+              text={comment.text}
+              toName={comment.replyToName ? comment.replyToName : ""}
+            />
           )}
         </div>
         <DeleteDialog

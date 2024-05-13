@@ -31,55 +31,40 @@ const reducer = (state, action) => {
       };
     case "DELETE_COMMENT":
       console.log("DELETE_COMMENT");
-      const filterComment = (comments, deletedId) => {
-        for (let i = 0; i < comments.length; i++) {
-          const comment = comments[i];
-          if (comment.id === deletedId) {
-            comments.splice(i, 1);
-            return true;
-          }
-          if (Array.isArray(comment.replies)) {
-            const foundInReplies = filterComment(comment.replies, deletedId);
-            if (foundInReplies) return true;
-          }
-        }
-        return false;
-      };
-
-      filterComment(state.comments, action.payload.commentId);
-
       return {
         ...state,
-        comments: [...state.comments],
-      };
-    case "EDIT_COMMENT":
-      console.log("EDIT_COMMENT");
-      const editCommentRecursive = (comments, commentId, newText) => {
-        return comments.map((comment) => {
-          if (comment.id === commentId) {
-            return { ...comment, text: newText };
-          } else if (Array.isArray(comment.replies)) {
+        comments: state.comments
+          .filter((comment) => comment.id !== action.payload.commentId)
+          .map((comment) => {
             return {
               ...comment,
-              replies: editCommentRecursive(
-                comment.replies,
-                commentId,
-                newText
+              replies: comment.replies.filter(
+                (reply) => reply.id !== action.payload.commentId
               ),
             };
-          }
-          return comment;
-        });
+          }),
       };
-
-      const editedComments = editCommentRecursive(
-        state.comments,
-        action.payload.commentId,
-        action.payload.newText
-      );
+    case "EDIT_COMMENT":
       return {
         ...state,
-        comments: editedComments,
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            comment.text = action.payload.newText;
+            return comment;
+          } else {
+            return {
+              ...comment,
+              replies: comment.replies.map((reply) => {
+                if (reply.id === action.payload.commentId) {
+                  reply.text = action.payload.newText;
+                  return reply;
+                } else {
+                  return reply;
+                }
+              }),
+            };
+          }
+        }),
       };
     case "REPLY_TO_COMMENT":
       console.log("REPLY_TO_COMMENT");
@@ -90,68 +75,46 @@ const reducer = (state, action) => {
           name: "MyProfile",
           photo: "https://api.lorem.space/image/face?w=150&h=150",
         },
-        date: "yesterday",
+        date: "now",
         votes: 0,
-        replies: [],
+        replyToId: action.payload.toCommentId,
+        replyToName: action.payload.toCommentName,
       };
-
-      const findComment = (comments, foundId) => {
-        for (let comment of comments) {
-          if (comment.id === foundId) {
-            return comment;
-          }
-          if (Array.isArray(comment.replies)) {
-            const foundComment = findComment(comment.replies, foundId);
-            if (foundComment) {
-              return foundComment;
-            }
-          }
-        }
-      };
-
-      const toComment = findComment(
-        [...state.comments],
-        action.payload.toCommentId
-      );
-
-      const existingReply = toComment.replies.find(
-        (reply) => reply.id === action.payload.repliedCommentId
-      );
-      if (!existingReply) {
-        toComment.replies.push({ ...repliedComment });
-      }
 
       return {
         ...state,
-        comments: [...state.comments],
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.payload.toCommentId) {
+            return {
+              ...comment,
+              replies: [...comment.replies, repliedComment],
+            };
+          }
+          return comment;
+        }),
       };
     case "VOTES_TO_COMMENT":
       console.log("VOTES_TO_COMMENT");
-      const updateVotesRecursive = (comments, toCommentId, isIncrement) => {
-        return comments.map((comment) => {
-          if (comment.id === toCommentId) {
-            comment.votes += isIncrement ? 0.5 : -0.5;
-          }
-          if (Array.isArray(comment.replies) && comment.replies.length > 0) {
-            comment.replies = updateVotesRecursive(
-              comment.replies,
-              toCommentId,
-              isIncrement
-            );
-          }
-          return comment;
-        });
-      };
-
-      const updatedComments = updateVotesRecursive(
-        state.comments,
-        action.payload.toCommentId,
-        action.payload.isIncrement
-      );
-
       return {
         ...state,
-        comments: updatedComments,
+        comments: state.comments.map((comment) => {
+          if (comment.id === action.payload.toCommentId) {
+            comment.votes += action.payload.isIncrement ? 0.5 : -0.5;
+            return comment;
+          } else {
+            if (Array.isArray(comment.replies)) {
+              return {
+                ...comment,
+                replies: comment.replies.map((reply) => {
+                  if (reply.id === action.payload.toCommentId) {
+                    reply.votes += action.payload.isIncrement ? 0.5 : -0.5;
+                  }
+                  return reply;
+                }),
+              };
+            }
+          }
+        }),
       };
     default:
       return {
