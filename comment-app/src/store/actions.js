@@ -2,8 +2,8 @@ const setComments = async (dispatch, comments) => {
   dispatch({ type: "FETCH_COMMENTS", payload: { comments } });
 };
 
-const addComment = (dispatch, comment) => {
-  dispatch({ type: "ADD_COMMENT", payload: { comment } });
+const addComment = (dispatch, newCommentId, inputText) => {
+  dispatch({ type: "ADD_COMMENT", payload: { newCommentId, inputText } });
 };
 
 const deleteComment = (dispatch, commentId) => {
@@ -14,10 +14,10 @@ const editComment = (dispatch, commentId, newText) => {
   dispatch({ type: "EDIT_COMMENT", payload: { commentId, newText } });
 };
 
-const replyToComment = (dispatch, toCommentId, repliedComment) => {
+const replyToComment = (dispatch, toCommentId, repliedCommentId, inputText) => {
   dispatch({
     type: "REPLY_TO_COMMENT",
-    payload: { toCommentId, repliedComment },
+    payload: { toCommentId, repliedCommentId, inputText },
   });
 };
 

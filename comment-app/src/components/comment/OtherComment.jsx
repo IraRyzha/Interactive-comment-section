@@ -12,7 +12,11 @@ const OtherComment = ({ comment }) => {
   return (
     <>
       <div className="w-full h-auto flex items-start gap-4 p-5 bg-white border-2">
-        <Voiting votes={comment.votes} handleVotes={handleVotes} />
+        <Voiting
+          votes={comment.votes}
+          allowToVote={true}
+          handleVotes={handleVotes}
+        />
         <div className="w-full h-auto flex flex-col gap-3 border-2">
           <div className="w-full h-auto flex items-center gap-5">
             <Author author={comment.author} isUserOwn={false} />
