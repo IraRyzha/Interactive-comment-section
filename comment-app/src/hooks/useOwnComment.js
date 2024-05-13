@@ -2,24 +2,27 @@ import { useContext, useState } from "react";
 import { MainContext } from "../context/AppContext";
 import { deleteComment, editComment } from "../store/actions";
 
-const useOwnComment = () => {
+const useOwnComment = (comment) => {
   const { dispatch } = useContext(MainContext);
+  const [inputText, setInputText] = useState(comment.text);
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleDelete = (commentId) => {
-    deleteComment(dispatch, commentId);
+  const handleDelete = () => {
+    deleteComment(dispatch, comment.id);
   };
 
-  const handleUpdate = (commentId, inputText) => {
+  const handleUpdate = () => {
     if (inputText.length < 1) {
       return 1;
     }
-    editComment(dispatch, commentId, inputText);
+    editComment(dispatch, comment.id, inputText);
     setIsEditing(false);
   };
 
   return {
+    inputText,
+    setInputText,
     isEditing,
     setIsEditing,
     isOpen,

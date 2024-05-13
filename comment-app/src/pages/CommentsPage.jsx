@@ -16,11 +16,11 @@ function CommentsPage() {
   }, []);
 
   return (
-    <div className="w-full h-screen py-8 flex flex-col items-center justify-center gap-3 bg-slate-100 rounded-lg border-2">
-      <div className="w-1/2 h-5/6 border-2">
+    <div className="w-full h-screen py-8 flex flex-col items-center justify-center gap-5 bg-gray-100 bg-opacity-50 rounded-lg">
+      <div className="w-1/2 h-5/6">
         <CommentsList />
       </div>
-      <div className="w-1/2 h-1/6 border-2">
+      <div className="w-1/2 h-1/6 flex flex-col items-center justify-center">
         <AddCommentForm />
       </div>
     </div>

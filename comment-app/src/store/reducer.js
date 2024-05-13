@@ -1,22 +1,3 @@
-const findComment = (comments, foundId) => {
-  console.log("Recursive work");
-  console.log(comments);
-  for (let comment of comments) {
-    if (comment.id === foundId) {
-      console.log("Find comment!");
-      console.log(comment);
-      return comment;
-    }
-    if (Array.isArray(comment.replies)) {
-      console.log("Find in replies!");
-      const foundComment = findComment(comment.replies, foundId);
-      if (foundComment) {
-        return foundComment;
-      }
-    }
-  }
-};
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_COMMENTS":
@@ -25,6 +6,7 @@ const reducer = (state, action) => {
         comments: [...action.payload.comments],
       };
     case "ADD_COMMENT":
+      console.log("ADD_COMMENT");
       const currentDate = new Date();
       const commentDate =
         String(currentDate.getHours()).padStart(2, "0") +
@@ -48,50 +30,59 @@ const reducer = (state, action) => {
         ],
       };
     case "DELETE_COMMENT":
+      console.log("DELETE_COMMENT");
       const filterComment = (comments, deletedId) => {
-        for (let comment of comments) {
-          if (comment.id !== deletedId) {
-            return comment;
+        for (let i = 0; i < comments.length; i++) {
+          const comment = comments[i];
+          if (comment.id === deletedId) {
+            comments.splice(i, 1);
+            return true;
           }
           if (Array.isArray(comment.replies)) {
-            console.log("Find in replies!");
-            const foundComment = filterComment(comment.replies, foundId);
-            if (foundComment) {
-              return foundComment;
-            }
+            const foundInReplies = filterComment(comment.replies, deletedId);
+            if (foundInReplies) return true;
           }
         }
+        return false;
       };
 
-      const filteredComments = filterComment(
-        [...state.comments],
-        action.payload.commentId
-      );
+      filterComment(state.comments, action.payload.commentId);
 
       return {
         ...state,
-        comments: [...filteredComments],
-        // state.comments.filter((comment) => {
-        //   comment.replies = comment.replies.filter(
-        //     (reply) => reply.id !== action.payload.commentId
-        //   );
-        //   return comment.id !== action.payload.commentId;
-        // }),
+        comments: [...state.comments],
       };
     case "EDIT_COMMENT":
+      console.log("EDIT_COMMENT");
+      const editCommentRecursive = (comments, commentId, newText) => {
+        return comments.map((comment) => {
+          if (comment.id === commentId) {
+            return { ...comment, text: newText };
+          } else if (Array.isArray(comment.replies)) {
+            return {
+              ...comment,
+              replies: editCommentRecursive(
+                comment.replies,
+                commentId,
+                newText
+              ),
+            };
+          }
+          return comment;
+        });
+      };
+
+      const editedComments = editCommentRecursive(
+        state.comments,
+        action.payload.commentId,
+        action.payload.newText
+      );
       return {
         ...state,
-        comments: state.comments.map((comment) => {
-          if (comment.id === action.payload.commentId) {
-            const updatedComment = { ...comment };
-            comment.text = action.payload.newText;
-            return updatedComment;
-          } else {
-            return comment;
-          }
-        }),
+        comments: editedComments,
       };
     case "REPLY_TO_COMMENT":
+      console.log("REPLY_TO_COMMENT");
       const repliedComment = {
         id: action.payload.repliedCommentId,
         text: action.payload.inputText,
@@ -104,11 +95,24 @@ const reducer = (state, action) => {
         replies: [],
       };
 
+      const findComment = (comments, foundId) => {
+        for (let comment of comments) {
+          if (comment.id === foundId) {
+            return comment;
+          }
+          if (Array.isArray(comment.replies)) {
+            const foundComment = findComment(comment.replies, foundId);
+            if (foundComment) {
+              return foundComment;
+            }
+          }
+        }
+      };
+
       const toComment = findComment(
         [...state.comments],
         action.payload.toCommentId
       );
-      console.log(toComment);
 
       const existingReply = toComment.replies.find(
         (reply) => reply.id === action.payload.repliedCommentId
@@ -122,28 +126,32 @@ const reducer = (state, action) => {
         comments: [...state.comments],
       };
     case "VOTES_TO_COMMENT":
-      const updatedComments = [...state.comments];
-      updatedComments.forEach((comment) => {
-        if (comment.id === action.payload.toCommentId) {
-          comment.votes = action.payload.isIncrement
-            ? comment.votes + 1
-            : comment.votes - 1;
-        } else {
-          if (comment.replies.length > 1) {
-            comment.replies.forEach((reply) => {
-              console.log(reply);
-              if (reply.id === action.payload.toCommentId) {
-                reply.votes = action.payload.isIncrement
-                  ? reply.votes + 1
-                  : reply.votes - 1;
-              }
-            });
+      console.log("VOTES_TO_COMMENT");
+      const updateVotesRecursive = (comments, toCommentId, isIncrement) => {
+        return comments.map((comment) => {
+          if (comment.id === toCommentId) {
+            comment.votes += isIncrement ? 0.5 : -0.5;
           }
-        }
-      });
+          if (Array.isArray(comment.replies) && comment.replies.length > 0) {
+            comment.replies = updateVotesRecursive(
+              comment.replies,
+              toCommentId,
+              isIncrement
+            );
+          }
+          return comment;
+        });
+      };
+
+      const updatedComments = updateVotesRecursive(
+        state.comments,
+        action.payload.toCommentId,
+        action.payload.isIncrement
+      );
+
       return {
         ...state,
-        comments: [...updatedComments],
+        comments: updatedComments,
       };
     default:
       return {

@@ -3,7 +3,7 @@ const getComments = async () => {
   const comments = [
     {
       id: 1,
-      text: "fhfghfghdfghreg",
+      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
       author: {
         name: "MyProfile",
         photo: "https://api.lorem.space/image/face?w=150&h=150",
@@ -12,21 +12,33 @@ const getComments = async () => {
       votes: 5,
       replies: [
         {
-          id: 10,
-          text: "rtertretertrret",
+          id: 5,
+          text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
           author: {
-            name: "Name1",
-            photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
+            name: "Name5",
+            photo: "https://api.lorem.space/image/face?w=150&h=150&r=4",
           },
           date: "month ago",
           votes: 1,
-          replies: [],
+          replies: [
+            {
+              id: 8,
+              text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
+              author: {
+                name: "Name8",
+                photo: "https://api.lorem.space/image/face?w=150&h=150&r=3",
+              },
+              date: "month ago",
+              votes: 5,
+              replies: [],
+            },
+          ],
         },
       ],
     },
     {
       id: 2,
-      text: "rtertretertrret",
+      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
       author: {
         name: "Name2",
         photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
@@ -35,8 +47,8 @@ const getComments = async () => {
       votes: 1,
       replies: [
         {
-          id: 9,
-          text: "fhfghfghdfghreg",
+          id: 6,
+          text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
           author: {
             name: "MyProfile",
             photo: "https://api.lorem.space/image/face?w=150&h=150",
@@ -46,8 +58,8 @@ const getComments = async () => {
           replies: [],
         },
         {
-          id: 12,
-          text: "rtertretertrret",
+          id: 7,
+          text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
           author: {
             name: "Name2",
             photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
@@ -60,7 +72,7 @@ const getComments = async () => {
     },
     {
       id: 3,
-      text: "bcbcbcbdfgzsdfsdf",
+      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
       author: {
         name: "Name3",
         photo: "https://api.lorem.space/image/face?w=150&h=150&r=3",
@@ -71,7 +83,7 @@ const getComments = async () => {
     },
     {
       id: 4,
-      text: "cvcxbcvbcvbfsdf",
+      text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vitae illum magni fuga commodi maiores adipisci reprehenderit deserunt rerum recusandae ea impedit, laborum sed.",
       author: {
         name: "Name4",
         photo: "https://api.lorem.space/image/face?w=150&h=150&r=4",

@@ -19,14 +19,15 @@ function AddCommentForm() {
   };
 
   return (
-    <div className="w-full h-auto p-2 flex items-start justify-center gap-5 bg-white text-wrap break-all border-2">
+    <div className="w-full h-full p-3 flex items-start justify-center gap-5 bg-white rounded-lg shadow-lg text-wrap break-all">
       <ProfileImage photo={user.photo} />
-      <input
+      <textarea
         maxLength="320"
         type="text"
-        className="flex-1 h-full min-h-14 border-2 rounded-lg"
+        className="flex-1 h-full min-h-14 max-h-20 p-1 resize-y border-2 rounded-lg focus:outline-none focus:border-gray-500"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
+        placeholder="Add a comment..."
       />
       <UiButton type="base" onClick={handleSend}>
         SEND

@@ -3,7 +3,7 @@ import MinusIcon from "../icons/minus-icon";
 
 function Voiting({ votes, allowToVote, handleVotes }) {
   return (
-    <div className="w-auto h-auto p-2 flex flex-col items-center justify-center gap-1 bg-slate-100 text-blue-800 rounded-lg border-2">
+    <div className="w-auto h-auto p-2 flex flex-col items-center justify-center gap-1 bg-slate-100 text-blue-800 rounded-lg">
       <PlusIcon
         className="opacity-75 font-bold hover:scale-[1.1]"
         onClick={() => allowToVote && handleVotes("+")}

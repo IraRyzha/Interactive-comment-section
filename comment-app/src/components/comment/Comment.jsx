@@ -7,7 +7,7 @@ function Comment({ comment }) {
   const { user } = useContext(MainContext);
   const isUserOwn = comment.author.name === user.name;
   return (
-    <div className="w-full h-auto flex flex-col items-end gap-2 border-2">
+    <div className="w-full h-auto flex flex-col items-end gap-2">
       {isUserOwn ? (
         <OwnComment comment={comment} />
       ) : (

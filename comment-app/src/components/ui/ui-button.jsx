@@ -16,7 +16,7 @@ import ReplyIcon from "../icons/reply-icon";
 function UiButton({ children, className, type, onClick, disabled }) {
   const buttonClassname = clsx(
     className,
-    "flex items-center gap-1 border-2",
+    "flex items-center gap-1",
     {
       reply: "text-blue-700 hover:text-blue-800",
       edit: "text-blue-700 hover:text-blue-800",
@@ -54,7 +54,7 @@ function UiButton({ children, className, type, onClick, disabled }) {
       {type === "base" ? (
         <button
           onClick={onClick}
-          className={`px-5 py-2 rounded-lg text-white bg-blue-700 hover:bg-opacity-75 border-2 ${className}`}
+          className={`px-5 py-2 rounded-lg text-white bg-blue-700 hover:bg-opacity-75 ${className}`}
         >
           {children}
         </button>

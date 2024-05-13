@@ -22,19 +22,10 @@ const replyToComment = (dispatch, toCommentId, repliedCommentId, inputText) => {
 };
 
 const votesToComment = (dispatch, toCommentId, symbol) => {
-  let isIncrement;
-  switch (symbol) {
-    case "+":
-      isIncrement = true;
-      break;
-    case "-":
-      isIncrement = false;
-      break;
-  }
-  console.log(toCommentId, symbol);
+  console.log("votesToComment work");
   dispatch({
     type: "VOTES_TO_COMMENT",
-    payload: { toCommentId, isIncrement },
+    payload: { toCommentId, isIncrement: symbol === "+" ? true : false },
   });
 };
 

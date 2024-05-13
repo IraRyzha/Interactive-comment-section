@@ -33,10 +33,7 @@ const DeleteDialog = ({ isOpen, setIsOpen, handleDelete }) => {
             </UiButton>
             <UiButton
               type="base"
-              onClick={() => {
-                console.log("Dialog delete");
-                handleDelete();
-              }}
+              onClick={() => handleDelete()}
               className="bg-red-500 hover:bg-red-600 flex-1"
             >
               YES, DELETE

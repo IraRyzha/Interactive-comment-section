@@ -1,35 +1,29 @@
 import { useContext, useState } from "react";
 import { MainContext } from "../context/AppContext";
-import { replyToComment } from "../store/actions";
 import ProfileImage from "./comment/ProfileImage";
 import UiButton from "./ui/ui-button";
 
-function ReplyCommentForm({ toComment, setIsReplying }) {
-  const { dispatch, user, newCommentId, setNewCommentId } =
-    useContext(MainContext);
-  const [inputText, setInputText] = useState("");
-
-  const handleReply = () => {
-    if (inputText.length < 1) {
-      return 1;
-    }
-    setNewCommentId((prev) => prev + 1);
-    setInputText("");
-    setIsReplying(false);
-    replyToComment(dispatch, toComment, newCommentId, inputText);
-  };
-
+function ReplyCommentForm({ handleReply }) {
+  const { user } = useContext(MainContext);
+  const [inputText, setInputText] = useState();
   return (
     <div className="w-full h-auto p-2 flex items-start justify-center gap-5 bg-white border-2">
       <ProfileImage photo={user.photo} />
-      <input
+      <textarea
         maxLength="320"
         type="text"
-        className="flex-1 h-full min-h-14 border-2 rounded-lg"
+        className="flex-1 h-full p-1 min-h-14 border-2 rounded-lg focus:outline-none focus:border-gray-500"
         value={inputText}
         onChange={(e) => setInputText(e.target.value)}
+        placeholder="Reply to this comment..."
       />
-      <UiButton type="base" onClick={handleReply}>
+      <UiButton
+        type="base"
+        onClick={() => {
+          handleReply(inputText);
+          setInputText("");
+        }}
+      >
         REPLY
       </UiButton>
     </div>
