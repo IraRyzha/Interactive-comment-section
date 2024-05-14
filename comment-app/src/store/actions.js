@@ -6,32 +6,37 @@ const addComment = (dispatch, newCommentId, inputText) => {
   dispatch({ type: "ADD_COMMENT", payload: { newCommentId, inputText } });
 };
 
-const deleteComment = (dispatch, commentId) => {
-  dispatch({ type: "DELETE_COMMENT", payload: { commentId } });
+const deleteComment = (dispatch, deleteCommentId) => {
+  dispatch({ type: "DELETE_COMMENT", payload: { deleteCommentId } });
 };
 
-const editComment = (dispatch, commentId, newText) => {
-  dispatch({ type: "EDIT_COMMENT", payload: { commentId, newText } });
+const editComment = (dispatch, editCommentId, newText) => {
+  dispatch({ type: "EDIT_COMMENT", payload: { editCommentId, newText } });
 };
 
 const replyToComment = (
   dispatch,
-  toCommentId,
-  toCommentName,
+  replyToCommentId,
+  replyToCommentName,
   repliedCommentId,
-  inputText
+  repliedText
 ) => {
   dispatch({
     type: "REPLY_TO_COMMENT",
-    payload: { toCommentId, toCommentName, repliedCommentId, inputText },
+    payload: {
+      replyToCommentId,
+      replyToCommentName,
+      repliedCommentId,
+      repliedText,
+    },
   });
 };
 
-const votesToComment = (dispatch, toCommentId, symbol) => {
+const votesToComment = (dispatch, voteToCommentId, symbol) => {
   console.log("votesToComment work");
   dispatch({
     type: "VOTES_TO_COMMENT",
-    payload: { toCommentId, isIncrement: symbol === "+" ? true : false },
+    payload: { voteToCommentId, isIncrement: symbol === "+" ? true : false },
   });
 };
 

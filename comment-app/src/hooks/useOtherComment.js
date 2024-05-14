@@ -11,14 +11,16 @@ const useOtherComment = (comment) => {
       return 1;
     }
     if (comment.replyToId) {
+      console.log("reply to the nested comment");
       replyToComment(
         dispatch,
         comment.replyToId,
-        comment.replyToName,
+        comment.author.name,
         newCommentId,
         inputText
       );
     } else {
+      console.log("reply to the ordinary comment");
       replyToComment(
         dispatch,
         comment.id,
