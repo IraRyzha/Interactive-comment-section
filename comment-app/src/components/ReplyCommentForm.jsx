@@ -5,9 +5,9 @@ import UiButton from "./ui/ui-button";
 
 function ReplyCommentForm({ handleReply }) {
   const { user } = useContext(MainContext);
-  const [inputText, setInputText] = useState();
+  const [inputText, setInputText] = useState("");
   return (
-    <div className="w-full h-auto p-2 flex items-start justify-center gap-5 bg-white border-2">
+    <div className="w-full h-auto p-2 flex items-start justify-center text-sm gap-5 bg-white rounded-lg border-2">
       <ProfileImage photo={user.photo} />
       <textarea
         maxLength="320"
@@ -17,13 +17,7 @@ function ReplyCommentForm({ handleReply }) {
         onChange={(e) => setInputText(e.target.value)}
         placeholder="Reply to this comment..."
       />
-      <UiButton
-        type="base"
-        onClick={() => {
-          handleReply(inputText);
-          setInputText("");
-        }}
-      >
+      <UiButton type="base" onClick={() => handleReply(inputText)}>
         REPLY
       </UiButton>
     </div>

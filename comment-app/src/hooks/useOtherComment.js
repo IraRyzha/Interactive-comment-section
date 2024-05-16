@@ -3,7 +3,8 @@ import { MainContext } from "../context/AppContext";
 import { replyToComment, votesToComment } from "../store/actions";
 
 const useOtherComment = (comment) => {
-  const { dispatch, newCommentId, setNewCommentId } = useContext(MainContext);
+  const { dispatch, user, newCommentId, setNewCommentId } =
+    useContext(MainContext);
   const [isReplying, setIsReplying] = useState(false);
 
   const handleReply = (inputText) => {
@@ -34,8 +35,7 @@ const useOtherComment = (comment) => {
   };
 
   const handleVotes = (symbol) => {
-    console.log("handleVotes");
-    votesToComment(dispatch, comment.id, symbol);
+    votesToComment(dispatch, comment.id, symbol, user.name);
   };
 
   return {

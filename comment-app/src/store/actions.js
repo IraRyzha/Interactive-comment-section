@@ -16,27 +16,27 @@ const editComment = (dispatch, editCommentId, newText) => {
 
 const replyToComment = (
   dispatch,
-  replyToCommentId,
-  replyToCommentName,
+  replyToId,
+  replyToName,
   repliedCommentId,
   repliedText
 ) => {
   dispatch({
     type: "REPLY_TO_COMMENT",
     payload: {
-      replyToCommentId,
-      replyToCommentName,
+      replyToId,
+      replyToName,
       repliedCommentId,
       repliedText,
     },
   });
 };
 
-const votesToComment = (dispatch, voteToCommentId, symbol) => {
+const votesToComment = (dispatch, voteToId, symbol, userName) => {
   console.log("votesToComment work");
   dispatch({
     type: "VOTES_TO_COMMENT",
-    payload: { voteToCommentId, isIncrement: symbol === "+" ? true : false },
+    payload: { voteToId, isIncrement: symbol === "+" ? true : false, userName },
   });
 };
 

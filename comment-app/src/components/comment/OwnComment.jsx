@@ -23,9 +23,8 @@ const OwnComment = ({ comment }) => {
     <>
       <div className="w-full h-auto relative flex items-start gap-4 p-5 bg-white rounded-lg shadow-lg">
         <Voiting
-          votes={comment.votes}
-          allowToVote={false}
-          handleVotes={() => alert("You can not vote for your own")}
+          comment={comment}
+          handleVotes={() => alert("You can not vote to your own comment!")}
         />
         <div className="w-full h-auto flex flex-col gap-3">
           <div className="w-full h-auto flex items-center gap-5">
@@ -45,11 +44,15 @@ const OwnComment = ({ comment }) => {
             </div>
           </div>
           {isEditing ? (
-            <div className="w-full h-auto flex flex-col items-end gap-1">
+            <div className="w-full h-auto min-h-32 flex flex-col items-end gap-1">
               <textarea
                 type="text"
-                className="flex-1 w-full h-auto min-h-14 border-2 focus:outline-none focus:border-gray-500 p-3 rounded-lg"
-                value={inputText}
+                className="flex-1 w-full h-auto min-h-14 text-sm border-2 focus:outline-none focus:border-gray-500 p-3 rounded-lg"
+                value={
+                  comment.replyToName
+                    ? "@" + comment.replyToName + " " + inputText
+                    : "" + inputText
+                }
                 onChange={(e) => setInputText(e.target.value)}
               />
               <UiButton type="base" className="mt-auto" onClick={handleUpdate}>
@@ -66,7 +69,7 @@ const OwnComment = ({ comment }) => {
         <DeleteDialog
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          handleDelete={() => handleDelete(comment.id)}
+          handleDelete={handleDelete}
         />
       </div>
       {comment.replies?.map((reply) => {

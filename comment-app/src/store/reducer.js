@@ -7,7 +7,6 @@ const reducer = (state, action) => {
         comments: [...comments],
       };
     case "ADD_COMMENT":
-      console.log("ADD_COMMENT");
       const { newCommentId, inputText } = action.payload;
       const currentDate = new Date();
       const commentDate =
@@ -32,7 +31,6 @@ const reducer = (state, action) => {
         ],
       };
     case "DELETE_COMMENT":
-      console.log("DELETE_COMMENT");
       const { deleteCommentId } = action.payload;
       return {
         ...state,
@@ -48,21 +46,24 @@ const reducer = (state, action) => {
           }),
       };
     case "EDIT_COMMENT":
-      console.log("EDIT_COMMENT");
       const { editCommentId, newText } = action.payload;
       return {
         ...state,
         comments: state.comments.map((comment) => {
           if (comment.id === editCommentId) {
-            comment.text = newText;
-            return comment;
+            return {
+              ...comment,
+              text: newText,
+            };
           } else {
             return {
               ...comment,
               replies: comment.replies.map((reply) => {
                 if (reply.id === editCommentId) {
-                  reply.text = newText;
-                  return reply;
+                  return {
+                    ...reply,
+                    text: newText,
+                  };
                 } else {
                   return reply;
                 }
@@ -72,13 +73,8 @@ const reducer = (state, action) => {
         }),
       };
     case "REPLY_TO_COMMENT":
-      console.log("REPLY_TO_COMMENT");
-      const {
-        replyToCommentId,
-        replyToCommentName,
-        repliedCommentId,
-        repliedText,
-      } = action.payload;
+      const { replyToId, replyToName, repliedCommentId, repliedText } =
+        action.payload;
       const repliedComment = {
         id: repliedCommentId,
         text: repliedText,
@@ -88,14 +84,14 @@ const reducer = (state, action) => {
         },
         date: "now",
         votes: 0,
-        replyToId: replyToCommentId,
-        replyToName: replyToCommentName,
+        replyToId,
+        replyToName,
       };
 
       return {
         ...state,
         comments: state.comments.map((comment) => {
-          if (comment.id === replyToCommentId) {
+          if (comment.id === replyToId) {
             return {
               ...comment,
               replies: [...comment.replies, repliedComment],
@@ -105,28 +101,51 @@ const reducer = (state, action) => {
         }),
       };
     case "VOTES_TO_COMMENT":
-      console.log("VOTES_TO_COMMENT");
-      const { voteToCommentId, isIncrement } = action.payload;
+      const { voteToId, isIncrement, userName } = action.payload;
+      const updatedComments = state.comments.map((comment) => {
+        if (comment.id === voteToId) {
+          const isAlreadyVote = comment.votes.includes(userName);
+          if (isIncrement && !isAlreadyVote) {
+            return {
+              ...comment,
+              votes: [...comment.votes, userName],
+            };
+          } else if (!isIncrement) {
+            return {
+              ...comment,
+              votes: comment.votes.filter((user) => user !== userName),
+            };
+          }
+        } else if (Array.isArray(comment.replies)) {
+          const updatedReplies = comment.replies.map((reply) => {
+            if (reply.id === voteToId) {
+              const isAlreadyVote = reply.votes.includes(userName);
+              if (isIncrement && !isAlreadyVote) {
+                return {
+                  ...reply,
+                  votes: [...reply.votes, userName],
+                };
+              } else if (!isIncrement) {
+                return {
+                  ...reply,
+                  votes: reply.votes.filter((user) => user !== userName),
+                };
+              }
+            }
+            return reply;
+          });
+
+          return {
+            ...comment,
+            replies: updatedReplies,
+          };
+        }
+        return comment;
+      });
+
       return {
         ...state,
-        comments: state.comments.map((comment) => {
-          if (comment.id === voteToCommentId) {
-            comment.votes += isIncrement ? 0.5 : -0.5;
-            return comment;
-          } else {
-            if (Array.isArray(comment.replies)) {
-              return {
-                ...comment,
-                replies: comment.replies.map((reply) => {
-                  if (reply.id === voteToCommentId) {
-                    reply.votes += isIncrement ? 0.5 : -0.5;
-                  }
-                  return reply;
-                }),
-              };
-            }
-          }
-        }),
+        comments: updatedComments,
       };
     default:
       return {

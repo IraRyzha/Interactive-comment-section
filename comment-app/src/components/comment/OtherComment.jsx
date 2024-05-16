@@ -14,11 +14,7 @@ const OtherComment = ({ comment }) => {
   return (
     <>
       <div className="w-full h-auto flex items-start gap-4 p-5 bg-white rounded-lg shadow-lg">
-        <Voiting
-          votes={comment.votes}
-          allowToVote={true}
-          handleVotes={handleVotes}
-        />
+        <Voiting comment={comment} handleVotes={handleVotes} />
         <div className="w-full h-auto flex flex-col gap-3">
           <div className="w-full h-auto flex items-center gap-5">
             <Author author={comment.author} isUserOwn={false} />
@@ -40,7 +36,7 @@ const OtherComment = ({ comment }) => {
         return (
           <div key={reply.id} className="w-[92%] h-auto relative p-1">
             <div className="bg-gray-300 rounded-lg shadow-lg w-[2px] h-[105%] absolute -left-[5%] -top[3%] -bottom-[3%]"></div>
-            <Comment comment={reply} toCommentId={comment.id} />
+            <Comment comment={reply} />
           </div>
         );
       })}

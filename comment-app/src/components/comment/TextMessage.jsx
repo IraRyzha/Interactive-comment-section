@@ -5,7 +5,6 @@ function TextMessage({ text, toName }) {
         <span className="font-bold text-blue-800">
           {toName && "@" + toName + " "}
         </span>
-
         {text}
       </p>
     </div>

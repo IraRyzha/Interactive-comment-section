@@ -9,7 +9,7 @@ const getComments = async () => {
         photo: "https://api.lorem.space/image/face?w=150&h=150",
       },
       date: "yesterday",
-      votes: 5,
+      votes: ["Name5"],
       replies: [
         {
           id: 5,
@@ -19,7 +19,7 @@ const getComments = async () => {
             photo: "https://api.lorem.space/image/face?w=150&h=150&r=4",
           },
           date: "month ago",
-          votes: 1,
+          votes: [],
           replyToId: 1,
           replyToName: "MyProfile",
         },
@@ -33,7 +33,7 @@ const getComments = async () => {
         photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
       },
       date: "month ago",
-      votes: 1,
+      votes: ["Tom", "Sara"],
       replies: [
         {
           id: 6,
@@ -43,7 +43,7 @@ const getComments = async () => {
             photo: "https://api.lorem.space/image/face?w=150&h=150",
           },
           date: "yesterday",
-          votes: 5,
+          votes: ["Name1", "Name2", "Name3", "Name4", "Name5"],
           replyToId: 2,
           replyToName: "Name2",
         },
@@ -55,9 +55,9 @@ const getComments = async () => {
             photo: "https://api.lorem.space/image/face?w=150&h=150&r=2",
           },
           date: "month ago",
-          votes: 2,
+          votes: [],
           replyToId: 2,
-          replyToName: "Name2",
+          replyToName: "MyProfile",
         },
       ],
     },
@@ -69,7 +69,7 @@ const getComments = async () => {
         photo: "https://api.lorem.space/image/face?w=150&h=150&r=3",
       },
       date: "2 weeks ago",
-      votes: 11,
+      votes: ["Tom", "Sara", "Daniel"],
       replies: [],
     },
     {
@@ -80,7 +80,7 @@ const getComments = async () => {
         photo: "https://api.lorem.space/image/face?w=150&h=150&r=4",
       },
       date: "recently",
-      votes: 25,
+      votes: ["Tom", "Sara", "Daniel", "Jack", "Elizabet", "Peter", "Bartek"],
       replies: [],
     },
   ];
