@@ -4,7 +4,11 @@ import { deleteComment, editComment } from "../store/actions";
 
 const useOwnComment = (comment) => {
   const { dispatch } = useContext(MainContext);
-  const [inputText, setInputText] = useState(comment.text);
+  const [inputText, setInputText] = useState(
+    comment.replyToId
+      ? "@" + comment.replyToName + " " + comment.text
+      : comment.text
+  );
   const [isEditing, setIsEditing] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
