@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import { MainContext } from "../context/AppContext";
-import ProfileImage from "./comment/ProfileImage";
-import UiButton from "./ui/ui-button";
+import { MainContext } from "../../context/AppContext";
+import ProfileImage from "./ProfileImage";
+import UiButton from "../ui/ui-button";
 
 function ReplyCommentForm({ handleReply }) {
   const { user } = useContext(MainContext);

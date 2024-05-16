@@ -25,7 +25,7 @@ const reducer = (state, action) => {
               photo: "https://api.lorem.space/image/face?w=150&h=150",
             },
             date: commentDate,
-            votes: 0,
+            votes: [],
             replies: [],
           },
         ],
@@ -83,7 +83,7 @@ const reducer = (state, action) => {
           photo: "https://api.lorem.space/image/face?w=150&h=150",
         },
         date: "now",
-        votes: 0,
+        votes: [],
         replyToId,
         replyToName,
       };

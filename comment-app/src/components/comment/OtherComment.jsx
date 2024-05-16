@@ -5,7 +5,7 @@ import CommentDate from "./CommentDate";
 import TextMessage from "./TextMessage";
 import Comment from "./Comment";
 import useOtherComment from "../../hooks/useOtherComment";
-import ReplyCommentForm from "../ReplyCommentForm";
+import ReplyCommentForm from "./ReplyCommentForm";
 
 const OtherComment = ({ comment }) => {
   const { isReplying, setIsReplying, handleReply, handleVotes } =

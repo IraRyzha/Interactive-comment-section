@@ -48,11 +48,7 @@ const OwnComment = ({ comment }) => {
               <textarea
                 type="text"
                 className="flex-1 w-full h-auto min-h-14 text-sm border-2 focus:outline-none focus:border-gray-500 p-3 rounded-lg"
-                value={
-                  comment.replyToName
-                    ? "@" + comment.replyToName + " " + inputText
-                    : "" + inputText
-                }
+                value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
               />
               <UiButton type="base" className="mt-auto" onClick={handleUpdate}>
