@@ -20,7 +20,11 @@ const useOwnComment = (comment) => {
     if (inputText.length < 1) {
       return 1;
     }
-    editComment(dispatch, comment.id, inputText);
+    editComment(
+      dispatch,
+      comment.id,
+      [...inputText].slice([...comment.replyToName].length + 1)
+    );
     setIsEditing(false);
   };
 

@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { MainContext } from "../../context/AppContext";
 import ProfileImage from "./ProfileImage";
-import UiButton from "../ui/ui-modify-button";
 import UiBaseButton from "../ui/ui-base-button";
 
 function ReplyCommentForm({ handleReply }) {
