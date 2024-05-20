@@ -1,4 +1,5 @@
 const reducer = (state, action) => {
+  let newCommentId = 10;
   switch (action.type) {
     case "FETCH_COMMENTS":
       const { comments } = action.payload;
@@ -7,12 +8,15 @@ const reducer = (state, action) => {
         comments: [...comments],
       };
     case "ADD_COMMENT":
-      const { newCommentId, inputText } = action.payload;
+      const { inputText } = action.payload;
       const currentDate = new Date();
       const commentDate =
         String(currentDate.getHours()).padStart(2, "0") +
         ":" +
         String(currentDate.getMinutes()).padStart(2, "0");
+
+      newCommentId += 1;
+
       return {
         ...state,
         comments: [
@@ -73,10 +77,9 @@ const reducer = (state, action) => {
         }),
       };
     case "REPLY_TO_COMMENT":
-      const { replyToId, replyToName, repliedCommentId, repliedText } =
-        action.payload;
+      const { replyToId, replyToName, repliedText } = action.payload;
       const repliedComment = {
-        id: repliedCommentId,
+        id: newCommentId,
         text: repliedText,
         author: {
           name: "MyProfile",
@@ -87,6 +90,8 @@ const reducer = (state, action) => {
         replyToId,
         replyToName,
       };
+
+      newCommentId += 1;
 
       return {
         ...state,

@@ -2,20 +2,18 @@ import { useContext, useState } from "react";
 import { MainContext } from "../context/AppContext";
 import { addComment } from "../store/actions";
 import ProfileImage from "./comment/ProfileImage";
-import UiButton from "./ui/ui-button";
+import UiBaseButton from "./ui/ui-base-button";
 
 function AddCommentForm() {
-  const { dispatch, user, newCommentId, setNewCommentId } =
-    useContext(MainContext);
+  const { dispatch, user } = useContext(MainContext);
   const [inputText, setInputText] = useState("");
 
   const handleSend = () => {
     if (inputText.length < 1) {
       return 1;
     }
-    addComment(dispatch, newCommentId, inputText);
+    addComment(dispatch, inputText);
     setInputText("");
-    setNewCommentId((prev) => prev + 1);
   };
 
   return (
@@ -29,9 +27,7 @@ function AddCommentForm() {
         onChange={(e) => setInputText(e.target.value)}
         placeholder="Add a comment..."
       />
-      <UiButton type="base" onClick={handleSend}>
-        SEND
-      </UiButton>
+      <UiBaseButton onClick={handleSend}>SEND</UiBaseButton>
     </div>
   );
 }

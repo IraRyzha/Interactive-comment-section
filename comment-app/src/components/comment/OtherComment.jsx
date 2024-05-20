@@ -1,4 +1,4 @@
-import UiButton from "../ui/ui-button";
+import UiButton from "../ui/ui-modify-button";
 import Voiting from "./Voiting";
 import Author from "./Author";
 import CommentDate from "./CommentDate";
@@ -8,13 +8,22 @@ import useOtherComment from "../../hooks/useOtherComment";
 import ReplyCommentForm from "./ReplyCommentForm";
 
 const OtherComment = ({ comment }) => {
-  const { isReplying, setIsReplying, handleReply, handleVotes } =
-    useOtherComment(comment);
+  const {
+    isReplying,
+    setIsReplying,
+    handleReply,
+    handleIncrementVotes,
+    handleDecrementVotes,
+  } = useOtherComment(comment);
 
   return (
     <>
       <div className="w-full h-auto flex items-start gap-4 p-5 bg-white rounded-lg shadow-lg">
-        <Voiting comment={comment} handleVotes={handleVotes} />
+        <Voiting
+          comment={comment}
+          handleIncrementVotes={handleIncrementVotes}
+          handleDecrementVotes={handleDecrementVotes}
+        />
         <div className="w-full h-auto flex flex-col gap-3">
           <div className="w-full h-auto flex items-center gap-5">
             <Author author={comment.author} isUserOwn={false} />

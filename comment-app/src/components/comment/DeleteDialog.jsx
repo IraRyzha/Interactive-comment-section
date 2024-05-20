@@ -6,7 +6,7 @@ import {
   Transition,
 } from "@headlessui/react";
 import { Fragment } from "react";
-import UiButton from "../ui/ui-button";
+import UiBaseButton from "../ui/ui-base-button";
 
 const DeleteDialog = ({ isOpen, setIsOpen, handleDelete }) => {
   return (
@@ -46,20 +46,18 @@ const DeleteDialog = ({ isOpen, setIsOpen, handleDelete }) => {
                 the comment and can not be undone.
               </Description>
               <div className="w-full h-full flex items-center justify-between gap-5 mt-4">
-                <UiButton
-                  type="base"
+                <UiBaseButton
                   onClick={() => setIsOpen(false)}
                   className="bg-gray-500 hover:bg-gray-600 flex-1"
                 >
                   NO, CANCEL
-                </UiButton>
-                <UiButton
-                  type="base"
+                </UiBaseButton>
+                <UiBaseButton
                   onClick={handleDelete}
                   className="bg-red-500 hover:bg-red-600 flex-1"
                 >
                   YES, DELETE
-                </UiButton>
+                </UiBaseButton>
               </div>
             </DialogPanel>
           </Transition.Child>

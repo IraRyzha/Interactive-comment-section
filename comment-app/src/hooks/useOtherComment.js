@@ -1,48 +1,42 @@
 import { useContext, useState } from "react";
 import { MainContext } from "../context/AppContext";
-import { replyToComment, votesToComment } from "../store/actions";
+import {
+  decrementVoteToComment,
+  incrementVoteToComment,
+  replyToComment,
+} from "../store/actions";
 
 const useOtherComment = (comment) => {
-  const { dispatch, user, newCommentId, setNewCommentId } =
-    useContext(MainContext);
+  const { dispatch, user } = useContext(MainContext);
   const [isReplying, setIsReplying] = useState(false);
 
   const handleReply = (inputText) => {
     if (inputText.length < 1) {
       return 1;
     }
-    if (comment.replyToId) {
-      console.log("reply to the nested comment");
-      replyToComment(
-        dispatch,
-        comment.replyToId,
-        comment.author.name,
-        newCommentId,
-        inputText
-      );
-    } else {
-      console.log("reply to the ordinary comment");
-      replyToComment(
-        dispatch,
-        comment.id,
-        comment.author.name,
-        newCommentId,
-        inputText
-      );
-    }
-    setNewCommentId((prev) => prev + 1);
+    const payload = {
+      replyToId: comment.replyToId ?? comment.id,
+      replyToName: comment.author.name,
+      repliedText: inputText,
+    };
+    replyToComment(dispatch, payload);
     setIsReplying(false);
   };
 
-  const handleVotes = (symbol) => {
-    votesToComment(dispatch, comment.id, symbol, user.name);
+  const handleIncrementVotes = () => {
+    incrementVoteToComment(dispatch, comment.id, user.name);
+  };
+
+  const handleDecrementVotes = () => {
+    decrementVoteToComment(dispatch, comment.id, user.name);
   };
 
   return {
     isReplying,
     setIsReplying,
     handleReply,
-    handleVotes,
+    handleIncrementVotes,
+    handleDecrementVotes,
   };
 };
 

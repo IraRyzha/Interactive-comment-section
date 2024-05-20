@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { MainContext } from "../../context/AppContext";
 import ProfileImage from "./ProfileImage";
-import UiButton from "../ui/ui-button";
+import UiButton from "../ui/ui-modify-button";
+import UiBaseButton from "../ui/ui-base-button";
 
 function ReplyCommentForm({ handleReply }) {
   const { user } = useContext(MainContext);
@@ -17,9 +18,9 @@ function ReplyCommentForm({ handleReply }) {
         onChange={(e) => setInputText(e.target.value)}
         placeholder="Reply to this comment..."
       />
-      <UiButton type="base" onClick={() => handleReply(inputText)}>
+      <UiBaseButton type="base" onClick={() => handleReply(inputText)}>
         REPLY
-      </UiButton>
+      </UiBaseButton>
     </div>
   );
 }

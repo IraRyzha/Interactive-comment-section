@@ -2,8 +2,8 @@ const setComments = async (dispatch, comments) => {
   dispatch({ type: "FETCH_COMMENTS", payload: { comments } });
 };
 
-const addComment = (dispatch, newCommentId, inputText) => {
-  dispatch({ type: "ADD_COMMENT", payload: { newCommentId, inputText } });
+const addComment = (dispatch, inputText) => {
+  dispatch({ type: "ADD_COMMENT", payload: { inputText } });
 };
 
 const deleteComment = (dispatch, deleteCommentId) => {
@@ -14,29 +14,26 @@ const editComment = (dispatch, editCommentId, newText) => {
   dispatch({ type: "EDIT_COMMENT", payload: { editCommentId, newText } });
 };
 
-const replyToComment = (
-  dispatch,
-  replyToId,
-  replyToName,
-  repliedCommentId,
-  repliedText
-) => {
+const replyToComment = (dispatch, payload) => {
   dispatch({
     type: "REPLY_TO_COMMENT",
-    payload: {
-      replyToId,
-      replyToName,
-      repliedCommentId,
-      repliedText,
-    },
+    payload,
   });
 };
 
-const votesToComment = (dispatch, voteToId, symbol, userName) => {
+const incrementVoteToComment = (dispatch, voteToId, userName) => {
   console.log("votesToComment work");
   dispatch({
     type: "VOTES_TO_COMMENT",
-    payload: { voteToId, isIncrement: symbol === "+" ? true : false, userName },
+    payload: { voteToId, isIncrement: true, userName },
+  });
+};
+
+const decrementVoteToComment = (dispatch, voteToId, userName) => {
+  console.log("votesToComment work");
+  dispatch({
+    type: "VOTES_TO_COMMENT",
+    payload: { voteToId, isIncrement: false, userName },
   });
 };
 
@@ -46,5 +43,6 @@ export {
   editComment,
   deleteComment,
   replyToComment,
-  votesToComment,
+  incrementVoteToComment,
+  decrementVoteToComment,
 };

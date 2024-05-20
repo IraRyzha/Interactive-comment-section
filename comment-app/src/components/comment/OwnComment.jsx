@@ -1,4 +1,4 @@
-import UiButton from "../ui/ui-button";
+import UiButton from "../ui/ui-modify-button";
 import Voiting from "./Voiting";
 import Author from "./Author";
 import CommentDate from "./CommentDate";
@@ -6,6 +6,7 @@ import TextMessage from "./TextMessage";
 import DeleteDialog from "./DeleteDialog";
 import Comment from "./Comment";
 import useOwnComment from "../../hooks/useOwnComment";
+import UiBaseButton from "../ui/ui-base-button";
 
 const OwnComment = ({ comment }) => {
   const {
@@ -24,7 +25,12 @@ const OwnComment = ({ comment }) => {
       <div className="w-full h-auto relative flex items-start gap-4 p-5 bg-white rounded-lg shadow-lg">
         <Voiting
           comment={comment}
-          handleVotes={() => alert("You can not vote to your own comment!")}
+          handleIncrementVotes={() =>
+            alert("You can not vote to your own comment!")
+          }
+          handleDecrementVotes={() =>
+            alert("You can not vote to your own comment!")
+          }
         />
         <div className="w-full h-auto flex flex-col gap-3">
           <div className="w-full h-auto flex items-center gap-5">
@@ -51,9 +57,9 @@ const OwnComment = ({ comment }) => {
                 value={inputText}
                 onChange={(e) => setInputText(e.target.value)}
               />
-              <UiButton type="base" className="mt-auto" onClick={handleUpdate}>
+              <UiBaseButton className="mt-auto" onClick={handleUpdate}>
                 Update
-              </UiButton>
+              </UiBaseButton>
             </div>
           ) : (
             <TextMessage
