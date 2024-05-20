@@ -30,7 +30,6 @@ const OtherComment = ({ comment }) => {
             <CommentDate date={comment.date} />
             <UiButton
               type="reply"
-              className="ml-auto"
               onClick={() => setIsReplying((prev) => !prev)}
             />
           </div>
