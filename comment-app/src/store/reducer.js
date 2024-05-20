@@ -1,5 +1,5 @@
 const reducer = (state, action) => {
-  let newCommentId = 10;
+  let newCommentId = Math.floor(Math.random() * 991 + 10);
   switch (action.type) {
     case "FETCH_COMMENTS":
       const { comments } = action.payload;
@@ -14,8 +14,6 @@ const reducer = (state, action) => {
         String(currentDate.getHours()).padStart(2, "0") +
         ":" +
         String(currentDate.getMinutes()).padStart(2, "0");
-
-      newCommentId += 1;
 
       return {
         ...state,
@@ -90,8 +88,6 @@ const reducer = (state, action) => {
         replyToId,
         replyToName,
       };
-
-      newCommentId += 1;
 
       return {
         ...state,
